@@ -1,5 +1,7 @@
 create database sprint2;
 
+drop database sprint2;
+
 use sprint2;
 
 create table Curso(
@@ -9,17 +11,17 @@ sigla char(3),
 coordenador varchar(50)
 );
 
+insert into Curso values
+(null, 'Inglês', 'ING', 'Marcos'),
+(null, 'Matemática', 'MAT', 'Vivian'),
+(null, 'Português', 'PT', 'Leonardo');
+
 create table Sala(
 idSala int primary key auto_increment,
 numeroSala int,
 andar int,
 fkCurso int, foreign key (fkCurso) references Curso (idCurso)
 );
-
-insert into Curso values
-(null, 'Inglês', 'ING', 'Marcos'),
-(null, 'Matemática', 'MAT', 'Vivian'),
-(null, 'Português', 'PT', 'Leonardo');
 
 insert into Sala values
 (null, 1, 2, 1),
@@ -37,3 +39,8 @@ select Curso.nome, Sala.andar from Curso join Sala on idCurso = fkCurso;
 select Curso.*, Sala.* from Curso join Sala on idCurso = fkCurso where andar = 3;
 
 alter table Sala add constraint chkandar check (andar = 2 or andar = 3);
+
+-- teste:
+insert into Sala values
+(null, 1, 4, 1);
+-- andar é o numero 4
