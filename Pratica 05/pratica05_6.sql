@@ -244,7 +244,6 @@ insert into Treinador values
 (null, 'Alice', '1191212-2535', 'alicetreinadora@gmail.com', null),
 (null, 'Matheus', '1191315-4070', 'matheustreinador@gmail.com', null),
 (null, 'Ezequiel', '1191141-3020', 'ezequieltreinador@gmail.com', null),
-(null, 'Erick', '1191141-3020', 'ericktreinador@gmail.com', null),
 (null, 'Marcelo', '1198787-1325', 'marcelonovato@gmail.com', 10),
 (null, 'Daniel', '1199582-1015', 'danielnovato@gmail.com', 11),
 (null, 'Caio', '1191213-4055', 'caionovato@gmail.com', 12),
@@ -268,10 +267,10 @@ select Treinador.*, Nadador.* from Treinador join Nadador on Treinador.idTreinad
 
 select Treinador.nomeTreinador as Experiente, Novato.nomeTreinador as Novato from Treinador join Treinador as novato on novato.idTreinador = treinador.fkTreinadorEXP;
 
-select Treinador.nomeTreinador as Experiente, Novato.nomeTreinado as Novato from Treinador left join Treinador as novato on novato.idTreinador = treinador.fkTreinadorEXP;
+select Treinador.nomeTreinador as Experiente, Novato.nomeTreinador as Novato from Treinador left join Treinador as novato on novato.idTreinador = treinador.fkTreinadorEXP;
 
-select Treinador.*, Novato.* from Treinador join Treinador as novato on novato.idTreinador = treinador.fkTreinadorEXP where Ex like 'Alice';
-
+select Treinador.nomeTreinador as Experiente, Treinador.nomeTreinador as Nomenovato from 
+															Treinador left join Treinador as Novato on Novato.idTreinador = Treinador.fkTreinadorEXP;
 
 
 
@@ -297,5 +296,5 @@ select * from funcionario join funcionario as supervisor on supervisor.idFunc = 
 
 select Treinador.*, treinadorNovato.*, Nadador.* from Treinador join treinadorNovato on Treinador.idTreinador = treinadorNovato.fkTreinadorEXP join Nadador on Nadador.fkTreinador = Treinador.idTreinador;
 
-select Treinador.*, treinadorNovato.*, Nadador.* from Treinador join TreinadorNovato on Treinador.idTreinador = treinadorNovato.fkTreinadorEXP join Nadador on Nadador.fkTreinador = Treinador.idTreinador where nomeTreinador like 'Marcos';
+select Treinador.*, treinadorNovato.*, Nadador.* from Treinador join TreinadorNovato on Treinador.idTreinador = treinadorNovato.fkTreinadorEXP join Nadador on Nadador.fkTreinador = Treinador.idTreinador where Experiente.nomeTreinador like 'Marcos';
 
