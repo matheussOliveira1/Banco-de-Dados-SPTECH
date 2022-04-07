@@ -219,13 +219,14 @@ select Funcionario.*, Setor.*, Acompanhantes.* from Funcionario join Setor on Fu
 -- ----------------------------------------------------------------------------
 create database praticaTreinador;
 use praticaTreinador;
-
+drop database praticaTreinador;
 
 create table Treinador(
 idTreinador int primary key auto_increment,
 nomeTreinador varchar(60),
 telefone char(12),
-email varchar(90)
+email varchar(90),
+fkTreinadorEXP int, foreign key (fkTreinadorEXP) references Treinador (idTreinador)
 )auto_increment = 10;
 
 create table Nadador(
@@ -233,25 +234,21 @@ idNadador int primary key auto_increment,
 nomeNadador varchar(60),
 estado varchar(30),
 dtNasc date,
-fkTreinador int, 
-foreign key (fkTreinador) references Treinador (idTreinador)
+fktreinadorEXP int, 
+foreign key (fktreinadorEXP) references Treinador (idTreinador)
 )auto_increment = 100;
 
-create table treinadorNovato(
-idNovato int primary key auto_increment,
-nomeNovato varchar(60),
-telefone char(12),
-email varchar(90),
-fkTreinadorEXP int, foreign key (fkTreinadorEXP) references Treinador (idTreinador)
-);
-
 insert into Treinador values
-(null, 'Marcos', '1191231-3020', 'marcostreinador@gmail.com'),
-(null, 'Fernanda', '1195611-1200', 'fernandatreinadora@gmail.com'),
-(null, 'Alice', '1191212-2535', 'alicetreinadora@gmail.com'),
-(null, 'Matheus', '1191315-4070', 'matheustreinador@gmail.com'),
-(null, 'Ezequiel', '1191141-3020', 'ezequieltreinador@gmail.com'),
-(null, 'Erick', '1191141-3020', 'ericktreinador@gmail.com');
+(null, 'Marcos', '1191231-3020', 'marcostreinador@gmail.com', null),
+(null, 'Fernanda', '1195611-1200', 'fernandatreinadora@gmail.com', null),
+(null, 'Alice', '1191212-2535', 'alicetreinadora@gmail.com', null),
+(null, 'Matheus', '1191315-4070', 'matheustreinador@gmail.com', null),
+(null, 'Ezequiel', '1191141-3020', 'ezequieltreinador@gmail.com', null),
+(null, 'Marcelo', '1198787-1325', 'marcelonovato@gmail.com', 10),
+(null, 'Daniel', '1199582-1015', 'danielnovato@gmail.com', 11),
+(null, 'Caio', '1191213-4055', 'caionovato@gmail.com', 12),
+(null, 'Caique', '1198145-4317', 'caiquenotavo@gmail.com', 13),
+(null, 'Yuri', '1193663-2516', 'yurinovato@gmail.com', 14);
 
 insert into Nadador values
 (null, 'Julio', 'São Paulo', '1999-03-12', 10),
@@ -261,28 +258,19 @@ insert into Nadador values
 (null, 'Maria', 'Fortaleza', '1999-10-23', 13),
 (null, 'Fernando', 'Fortaleza', '1996-12-31', 13);
 
-insert into treinadorNovato values
-(null, 'Marcelo', '1198787-1325', 'marcelonovato@gmail.com', 10),
-(null, 'Daniel', '1199582-1015', 'danielnovato@gmail.com', 11),
-(null, 'Caio', '1191213-4055', 'caionovato@gmail.com', 12),
-(null, 'Caique', '1198145-4317', 'caiquenotavo@gmail.com', 12),
-(null, 'Yuri', '1193663-2516', 'yurinovato@gmail.com', 13);
-
 select * from Treinador; 
 select * from Nadador;
-select * from treinadorNovato;
 
 select Treinador.*, Nadador.* from Treinador join Nadador on Treinador.idTreinador = Nadador.fkTreinador;
 
 select Treinador.*, Nadador.* from Treinador join Nadador on Treinador.idTreinador = Nadador.fkTreinador where nomeTreinador like 'Matheus';
 
-select Treinador.*, treinadorNovato.* from Treinador join treinadorNovato on Treinador.idTreinador = treinadorNovato.fkTreinadorEXP;
+select Treinador.nomeTreinador as Experiente, Novato.nomeTreinador as Novato from Treinador join Treinador as Novato on Novato.fktreinadorEXP = Treinador.idTreinador;
 
-select Treinador.*, treinadorNovato.* from Treinador left join treinadorNovato on Treinador.idTreinador = treinadorNovato.fkTreinadorEXP;
+select Treinador.nomeTreinador as Experiente, Novato.nomeTreinador as Novato from Treinador left join Treinador as novato on novato.idTreinador = treinador.fkTreinadorEXP;
 
-select Treinador.*, treinadorNovato.* from Treinador join treinadorNovato on Treinador.idTreinador = treinadorNovato.fkTreinadorEXP where nomeTreinador like 'Alice';
+select Treinador.nomeTreinador as Experiente, Novato.nomeTreinador as Novato from Treinador join Treinador as Novato on Novato.fktreinadorEXP = Treinador.idTreinador where Treinador.nomeTreinador like 'Alice';
 
-select Treinador.*, treinadorNovato.*, Nadador.* from Treinador join treinadorNovato on Treinador.idTreinador = treinadorNovato.fkTreinadorEXP join Nadador on Nadador.fkTreinador = Treinador.idTreinador;
+select Treinador.nomeTreinador as Experiente, Nadador.*, Novato.nomeTreinador as Novato  from Treinador join Nadador on Treinador.idTreinador = Nadador.fkTreinadorEXP join Treinador as Novato on Novato.fktreinadorEXP = Treinador.idTreinador;
 
-select Treinador.*, treinadorNovato.*, Nadador.* from Treinador join TreinadorNovato on Treinador.idTreinador = treinadorNovato.fkTreinadorEXP join Nadador on Nadador.fkTreinador = Treinador.idTreinador where nomeTreinador like 'Marcos';
-
+select Treinador.nomeTreinador as Experiente, Nadador.*, Novato.nomeTreinador as Novato  from Treinador join Nadador on Treinador.idTreinador = Nadador.fkTreinadorEXP join Treinador as Novato on Novato.fktreinadorEXP = Treinador.idTreinador where Treinador.nomeTreinador like 'Matheus';
