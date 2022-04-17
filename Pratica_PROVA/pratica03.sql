@@ -23,12 +23,12 @@ CREATE TABLE Campanha(
 )AUTO_INCREMENT = 500;
 
 INSERT INTO Organizador VALUES
-(NULL, 'Junior', 'R.Juni', 'Jd.Marcelina', 'junior@prova.com', NULL),
-(NULL, 'Marcela', 'R.Kindu', 'Jd.Terezina', 'marcela@prova.com', 30),
-(NULL, 'Emanuely' 'R.Andre', 'Jd.Barcelona' 'emanuely@prova.com', 30),
-(NULL, 'Pedro', 'R.Joaquim', 'Jd.Nazare', 'pedro@prova.com', NULL),
-(NULL, 'Thomas', 'R.Chigaco', 'Jd.Estados Unidos', 'thomas@prova.com', 33),
-(NULL, 'Felipe', 'R.Ponte', 'Jd.Grama alta', 'felipe@prova.com', 33);
+(NULL, 'Junior', 'R.Juni', 'Jd.Marcelina', 'junior@gmail.com', NULL),
+(NULL, 'Marcela', 'R.Kindu', 'Jd.Terezina', 'marcela@gmail.com', 30),
+(NULL, 'Emanuely', 'R.Andre', 'Jd.Barcelona', 'emanuely@gmail.com', 30),
+(NULL, 'Pedro', 'R.Joaquim', 'Jd.Nazare', 'pedro@gmail.com', NULL),
+(NULL, 'Thomas', 'R.Chigaco', 'Jd.Estados Unidos', 'thomas@gmail.com', 33),
+(NULL, 'Felipe', 'R.Ponte', 'Jd.Grama alta', 'felipe@gmail.com', 33);
 
 INSERT INTO Campanha VALUES
 (NULL, 'Higiene', 'HigieneSempre', NULL, '2022-06-12', 30),
@@ -47,13 +47,13 @@ SELECT * FROM Organizador JOIN Campanha ON Campanha.fkOrganizador = Organizador.
 SELECT * FROM Organizador JOIN Campanha ON Campanha.fkOrganizador = Organizador.idOrganizador WHERE Organizador.nome = 'Emanuely';
 
 -- I 
-SELECT * FROM Organizador JOIN Organizador AS Experiente ON Experiente.idOrganizador = Organizador.fkOrganizador;
+SELECT * FROM Organizador JOIN Organizador AS Experiente ON Experiente.idOrganizador = Organizador.orgExperiente;
 
 -- J
-SELECT * FROM Organizador JOIN Organizador AS Experiente ON Experiente.idOrganizador = Organizador.fkOrganizador WHERE Organizador.nome = 'Junior';
+SELECT * FROM Organizador JOIN Organizador AS Experiente ON Experiente.orgExperiente = Organizador.idOrganizador WHERE Organizador.nome = 'Junior';
 
 -- L
-SELECT * FROM Organizador JOIN Campanha ON Campanha.fkOrganizador = Organizador.idOrganizador JOIN Organizador AS Experiente ON Experiente.idOrganizador = Organizador.fkOrganizador;
+SELECT * FROM Organizador JOIN Campanha ON Campanha.fkOrganizador = Organizador.idOrganizador JOIN Organizador AS Experiente ON Experiente.orgExperiente = Organizador.idOrganizador;
 
 -- M
-SELECT * FROM Organizador JOIN Campanha ON Campanha.fkOrganizador = Organizador.idOrganizador JOIN Organizador AS Experiente ON Experiente.idOrganizador = Organizador.fkOrganizador WHERE Organizador.nome = 'Thomas'
+SELECT * FROM Organizador JOIN Campanha ON Campanha.fkOrganizador = Organizador.idOrganizador JOIN Organizador AS Experiente ON Experiente.orgExperiente = Organizador.idOrganizador WHERE Experiente.nome = 'Thomas'
