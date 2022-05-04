@@ -79,13 +79,13 @@ SELECT * FROM Cliente JOIN Venda ON Venda.fkCliente = Cliente.idCliente;
 SELECT * FROM Cliente JOIN Venda ON Venda.fkCliente = Cliente.idCliente WHERE nome = "Fernando";
 
 -- I) Exibir os dados dos clientes e de suas respectivas indicações de clientes.
-SELECT * FROM Cliente JOIN Cliente as clienteIndic on clienteIndic.clienteIndicado = Cliente.idCliente;
+SELECT * FROM Cliente JOIN Cliente as clienteIndic on clienteIndic.fkClienteIndicado = Cliente.idCliente;
 
 -- J) Exibir os dados dos clientes indicados e os dados dos respectivos clientes indicadores, porém somente de um determinado cliente indicador (informar o nome do cliente que indicou na consulta).
-SELECT * FROM Cliente JOIN Cliente as clienteIndic on clienteIndic.clienteIndicado = Cliente.idCliente WHERE Cliente.nome = "Lucas";
+SELECT * FROM Cliente JOIN Cliente as clienteIndic on clienteIndic.fkClienteIndicado = Cliente.idCliente WHERE Cliente.nome = "Lucas";
 
 -- L) Exibir os dados dos clientes, os dados dos respectivos clientes que indicaram, os dados das respectivas vendas e dos produtos.
-SELECT Cliente.*, Produto.*, Venda.*, notaFiscal.* FROM Cliente JOIN Cliente as clienteIndic ON clienteIndic.fkClienteIndicado = Cliente.idCliente JOIN Venda ON Venda.fkCliente = Cliente.idCliente JOIN notaFiscal ON notaFiscal.fkVenda = Venda.idVenda JOIN Produto ON Produto.idProduto = notaFiscal.fkProduto;
+SELECT Cliente.*, Produto.*, Venda.*, notaFiscal.* FROM Cliente JOIN Cliente as clienteIndic ON clienteIndic.fkClienteIndicado = Cliente.idCliente JOIN Venda ON Venda.fkCliente = clienteIndic.idCliente JOIN notaFiscal ON notaFiscal.fkVenda = Venda.idVenda JOIN Produto ON Produto.idProduto = notaFiscal.fkProduto;
 
 -- M) Exibir apenas a data da venda, o nome do produto e a quantidade do produto numa determinada venda.
 SELECT Produto.nome, Venda.dtVenda, notaFiscal.idnotafiscal FROM Venda JOIN notaFiscal ON notaFiscal.fkVenda = Venda.idVenda JOIN Produto ON notaFiscal.fkProduto = Produto.idProduto WHERE Venda.idVenda = 2;
